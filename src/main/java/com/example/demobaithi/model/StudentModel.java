@@ -13,14 +13,26 @@ import java.util.List;
 public class StudentModel implements StudentDAO{
     protected Connection conn;
 
-    public StudentModel(Connection conn) {
+    public StudentModel() {
         Database database = Database.getInstance();
         this.conn = database.connection();
     }
 
     @Override
     public void add(Student student) {
+        try{
+            String sql = "insert into students (name,email,dateOfBirt, address, phone,classroom) values(?,?,?,?,?,?)";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,student.getName());
+            statement.setString(1,student.getEmail());
+            statement.setString(1,student.getDateOfBirt());
+            statement.setString(1,student.getAddress());
+            statement.setString(1,student.getPhone());
+            statement.setString(1,student.getClassroom());
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
