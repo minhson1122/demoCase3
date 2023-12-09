@@ -24,12 +24,12 @@ public class StudentModel implements StudentDAO{
             String sql = "insert into students (name,email,dateOfBirt, address, phone,classroom) values(?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1,student.getName());
-            statement.setString(1,student.getEmail());
-            statement.setString(1,student.getDateOfBirt());
-            statement.setString(1,student.getAddress());
-            statement.setString(1,student.getPhone());
-            statement.setString(1,student.getClassroom());
-
+            statement.setString(2,student.getEmail());
+            statement.setString(3,student.getDateOfBirt());
+            statement.setString(4,student.getAddress());
+            statement.setString(5,student.getPhone());
+            statement.setString(6,student.getClassroom());
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -60,9 +60,29 @@ public class StudentModel implements StudentDAO{
     }
 
     @Override
-    public Student findByid() {
-        return null;
+    public Student findByid(int id) {
+        Student student = null;
+        try{
+            String sql = "select * from students where id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1,id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString(2);
+                String email = rs.getString(3);
+                String DateOfBirt = rs.getString(4);
+                String address = rs.getString(5);
+                String phone = rs.getString(6);
+                String classroom = rs.getString(7);
+                student = new Student(name, email, DateOfBirt, address, phone, classroom);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return student;
     }
+
 
     @Override
     public Student findByName() {
@@ -71,7 +91,20 @@ public class StudentModel implements StudentDAO{
 
     @Override
     public void edit(Student student) {
+        try{
+            String sql  = "update students set name= ?, email = ?, DateOfBirt = ? , address = ?, phone = ? ,classroom = ? where id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1,student.getName());
+            statement.setString(2,student.getEmail());
+            statement.setString(3,student.getDateOfBirt());
+            statement.setString(4,student.getAddress());
+            statement.setString(5,student.getPhone());
+            statement.setString(6,student.getClassroom());
+            statement.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

@@ -24,6 +24,12 @@ public class StudentServlet extends HttpServlet {
         }
         try{
             switch (action){
+                case "add":
+                    studentController.showFormAddStudent(req, resp);
+                    break;
+                case "edit":
+                    studentController.showFormUpdate(req, resp);
+                    break;
                 default:
                     studentController.showlistStudent(req, resp);
             }
@@ -36,6 +42,19 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String action = req.getParameter("action");
+        if (action == null){
+            action ="";
+        }
+        try{
+            switch (action){
+                case "add":
+                    studentController.addStudent(req, resp);
+                    break;
+
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

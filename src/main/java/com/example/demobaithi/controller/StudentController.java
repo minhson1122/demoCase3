@@ -28,4 +28,24 @@ public void showFormAddStudent(HttpServletRequest request,HttpServletResponse re
         dispatcher.forward(request,response);
 
 }
+public void addStudent(HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException{
+        String name  = request.getParameter("name");
+    String email  = request.getParameter("email");
+    String DateOfBirt  = request.getParameter("DateOfBirt");
+    String address  = request.getParameter("address");
+    String phone  = request.getParameter("phone");
+    String classroom  = request.getParameter("classroom");
+    Student student = new Student(name,email,DateOfBirt,address,phone,classroom);
+    studentDAO.add(student);
+    System.out.println(student);
+RequestDispatcher dispatcher = request.getRequestDispatcher("/view/add.jsp");
+dispatcher.forward(request,response);
+}
+public void showFormUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        int id = Integer.parseInt(request.getParameter("id"));
+        Student student = studentDAO.findByid(id);
+        request.setAttribute("student", student);
+    RequestDispatcher dispatcher = request.getRequestDispatcher("/view/edit.jsp");
+    dispatcher.forward(request,response);
+}
 }

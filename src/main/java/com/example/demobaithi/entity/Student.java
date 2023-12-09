@@ -19,6 +19,15 @@ public class Student {
         this.classroom = classroom;
     }
 
+    public Student(String name, String email, String dateOfBirt, String address, String phone, String classroom) {
+        this.name = name;
+        this.email = email;
+        this.dateOfBirt = dateOfBirt;
+        this.address = address;
+        this.phone = phone;
+        this.classroom = classroom;
+    }
+
     public int getId() {
         return id;
     }
