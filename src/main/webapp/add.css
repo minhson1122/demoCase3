@@ -15,7 +15,7 @@ body{
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
+    background-color: ghostwhite;
     background-clip: border-box;
     border: 1px solid #e5e9f2;
     border-radius: .2rem;

@@ -18,7 +18,14 @@ public class StudentController {
         this.studentDAO = new StudentModel();
     }
     public void showlistStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Student> studentList = studentDAO.getAllStudent();
+        String key = request.getParameter("key");
+        List<Student> studentList;
+        if (key == null){
+             studentList = studentDAO.getAllStudent();
+        }else {
+            studentList = studentDAO.findByName(key);
+        }
+        request.setAttribute("key",key);
         request.setAttribute("studentList", studentList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/view/showlist.jsp");
         dispatcher.forward(request,response);
@@ -48,4 +55,11 @@ public void showFormUpdate(HttpServletRequest request, HttpServletResponse respo
     RequestDispatcher dispatcher = request.getRequestDispatcher("/view/edit.jsp");
     dispatcher.forward(request,response);
 }
+public void Delete(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException{
+        int id = Integer.parseInt(request.getParameter("id"));
+        studentDAO.remove(id);
+        response.sendRedirect("/student");
 }
+
+}
+

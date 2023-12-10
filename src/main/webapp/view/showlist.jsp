@@ -16,6 +16,22 @@
 </head>
 <body>
 <div class="container">
+    <div class="search-box">
+        <form method="get">
+        <input type="text" name ="key" value="${key}">
+            <button type="submit">Search</button>
+            <button><a href="/student?action=add">Add Student</a></button>
+        <div class="search-icon">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="cancel-icon">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="search-data">
+        </div>
+        </form>
+    </div>
+
     <div class="row">
         <div class="col-lg-12">
             <div class="main-box clearfix">
@@ -61,13 +77,13 @@
                                     ${student.getClassroom()}
                             </td>
                             <td>
-                                <button><a href="/student?action=edit&id='${student.getId()}'" class="table-link">
+                                <button><a href="/student?action=edit&id=${student.getId()}" class="table-link">
 									<span class="fa-stack">
 										<i class="fa fa-square fa-stack-2x"></i>
 										<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
 									</span>
                                 Edit</a></button>
-                                <button><a href="/student?action=delete&id='${student.getId()}'" class="table-link danger">
+                                <button><a  href="/student?action=delete&id=${student.getId()}" class="table-link danger",>
 									<span class="fa-stack">
 										<i class="fa fa-square fa-stack-2x"></i>
 										<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>

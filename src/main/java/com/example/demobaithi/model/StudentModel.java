@@ -85,8 +85,28 @@ public class StudentModel implements StudentDAO{
 
 
     @Override
-    public Student findByName() {
-        return null;
+    public List<Student> findByName(String key) {
+        List<Student> list = new ArrayList<>();
+        try{
+            String sql = "select * from students where name like ? ";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, "%" + key + "%");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt(1);
+                String name = rs.getString(2);
+                String email = rs.getString(3);
+                String DateOfBirt = rs.getString(4);
+                String address = rs.getString(5);
+                String phone = rs.getString(6);
+                String classroom = rs.getString(7);
+                Student student = new Student(id,name,email,DateOfBirt,address,phone,classroom);
+                list.add(student);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return list;
     }
 
     @Override
@@ -108,7 +128,14 @@ public class StudentModel implements StudentDAO{
     }
 
     @Override
-    public void remove(Student student) {
-
+    public void remove(int id) {
+        try {
+            String sql = "delete from students where id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

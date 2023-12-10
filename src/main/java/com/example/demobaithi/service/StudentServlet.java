@@ -30,6 +30,12 @@ public class StudentServlet extends HttpServlet {
                 case "edit":
                     studentController.showFormUpdate(req, resp);
                     break;
+                case "delete":
+                    studentController.Delete(req, resp);
+                    break;
+                case "search":
+                    studentController.showlistStudent(req, resp);
+                    break;
                 default:
                     studentController.showlistStudent(req, resp);
             }
